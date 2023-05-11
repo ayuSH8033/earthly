@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: earthly
+  labels:
+    app: earthly
+spec:
+  template:
+    metadata:
+      name: earthly
+      labels:
+        app: earthly
+        component: earthly
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: earthly
+        image: earthly/earthly:v0.5.20
+        args: ["github.com/earthly/ci-example-project:main+build"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - mountPath: /workspace
+            name: workspace
+        env:
+          # To build and save Docker images, provide the DOCKER_HOST variable instead.
+          - name: NO_DOCKER
+            value: '1'
+      volumes:
+        - name: workspace
+          emptyDir: {}
+  backoffLimit: 4
