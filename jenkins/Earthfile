@@ -68,7 +68,7 @@ REMOVE_NETWORK:
 REMOVE_VOLUMES:
     COMMAND
     RUN docker volume rm jenkins-data || true
-    RUN docker volume rm jenkins-docker-certs  || true
+    # RUN docker volume rm jenkins-docker-certs  || true
 
 START_SERVER:
     COMMAND
