@@ -42,7 +42,7 @@ jenkins-server:
         $(lsb_release -cs) stable"
     RUN apt-get update && apt-get install -y docker-ce-cli
     USER jenkins
-    RUN jenkins-plugin-cli --plugins "blueocean:1.27.4"
+    RUN java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin blue-ocean:1.27.4
     RUN jenkins-plugin-cli --plugins "docker-workflow:1.26"
     RUN jenkins-plugin-cli --plugins "docker-plugin:1.2.2"
 
