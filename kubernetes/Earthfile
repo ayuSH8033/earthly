@@ -16,6 +16,7 @@ start:
         --timeout=90s
 
     RUN kubectl logs -f jobs/earthly
+    RUN kubectl apply -f ./all-in-one/nginx.yaml
 
 start-remote-buildkitd:
     LOCALLY
