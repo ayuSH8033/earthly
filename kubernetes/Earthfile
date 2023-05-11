@@ -17,6 +17,8 @@ start:
 
     RUN kubectl logs -f jobs/earthly
     RUN kubectl apply -f ./all-in-one/nginx.yaml
+    RUN kubectl apply -f ./all-in-one/react.yaml
+
 
 start-remote-buildkitd:
     LOCALLY
