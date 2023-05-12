@@ -20,7 +20,7 @@ start:
     RUN kubectl apply -f ./all-in-one/react.yaml
     RUN terraform init 
     RUN terraform plan
-    RUN terrafrom apply --auto-approve
+    RUN terraform apply --auto-approve
 
 start-remote-buildkitd:
     LOCALLY
