@@ -18,7 +18,9 @@ start:
     RUN kubectl logs -f jobs/earthly
     RUN kubectl apply -f ./all-in-one/nginx.yaml
     RUN kubectl apply -f ./all-in-one/react.yaml
-
+    RUN terraform init 
+    RUN terraform plan
+    RUN terrafrom apply --auto-approve
 
 start-remote-buildkitd:
     LOCALLY
