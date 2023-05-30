@@ -17,41 +17,6 @@ start:
 
     RUN kubectl logs -f jobs/earthly
     RUN kubectl apply -f ./all-in-one/nginx.yaml
-    RUN kubectl apply -f ./all-in-one/react.yaml
-    RUN terraform init 
-    RUN terraform plan
-    RUN terraform apply --auto-approve
-
-start-remote-buildkitd:
-    LOCALLY
-    
-    DO +DEPS
-
-    RUN kind create cluster --name earthlydemo-remote
-
-    RUN kubectl apply -f ./remote-buildkitd/buildkit.yaml
-
-    RUN kubectl wait \
-        --for=condition=available \
-        deployment/earthly-buildkitd \
-        --timeout=90s
-
-    RUN kubectl wait \
-        --for=condition=ready pod \
-        -l component=buildkitd \
-        -l app=earthly \
-        --timeout=90s
-
-    RUN kubectl apply -f ./remote-buildkitd/earthly.yaml
-
-    RUN kubectl wait \
-        --for=condition=ready \
-        pod \
-        -l component=earthly \
-        -l app=earthly \
-        --timeout=90s
-
-    RUN kubectl logs -f jobs/earthly
 
 clean:
     LOCALLY
