@@ -9,5 +9,5 @@ variable "aws_region" {
 variable "bucket_name" {
   description = "S3 bucket name"
   type        = string
-  default     = "earthr57y56786"
+  default     = "earthly-bucket-2023"
 }
