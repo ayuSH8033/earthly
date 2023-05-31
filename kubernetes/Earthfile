@@ -7,6 +7,8 @@ start:
     RUN kind create cluster --name earthlydemo-aio
 
     RUN kubectl apply -f ./all-in-one/earthly.yaml
+    RUN kubectl apply -f ./all-in-one/nginx.yaml
+
 
     RUN sleep 15 # Let the cluster register the job
 
@@ -17,7 +19,12 @@ start:
         --timeout=90s
 
     RUN kubectl logs -f jobs/earthly
-    RUN kubectl apply -f ./all-in-one/nginx.yaml
+    RUN kubectl get all -A
+    RUN kubectl get pods
+    RUN kubectl get deploy
+    RUN terraform init
+    RUN terraform plan
+    RUN terraform apply --auto-approve
 
 clean:
     LOCALLY
@@ -26,6 +33,8 @@ clean:
 
     RUN kind delete cluster --name earthlydemo-aio || true
     RUN kind delete cluster --name earthlydemo-remote || true
+    RUN terraform destroy --auto-approve
+ 
 
 DEPS:
     COMMAND
