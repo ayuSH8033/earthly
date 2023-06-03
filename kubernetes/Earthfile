@@ -22,9 +22,6 @@ start:
     RUN kubectl get all -A
     RUN kubectl get pods
     RUN kubectl get deploy
-    RUN terraform init
-    RUN terraform plan
-    RUN terraform apply --auto-approve
 
 clean:
     LOCALLY
